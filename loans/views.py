@@ -84,7 +84,6 @@ class CheckEligibility(APIView):
             credit_score += (1 - (current_year_loan_count / total_loans)) * loan_activity_weight
 
         credit_score = max(0, min(100, int(credit_score)))
-        print("Credit Score: ", credit_score)
         return credit_score
 
     def calculate_monthly_instalment(self, loan_amount, interest_rate, tenure):
@@ -176,8 +175,11 @@ class ViewLoan(APIView):
 class ViewLoansByCustomer(APIView):
     def get(self, request, customer_id):
         try:
-            loans = Loan.objects.filter(customer_id=customer_id, end_date__gte=date.today())
+            customer = Customer.objects.get(customer_id=customer_id)
+            loans = Loan.objects.filter(customer_id=customer, end_date__gte=date.today())
             loan_serializer = LoanDetailSerializer(loans, many=True)
             return Response(loan_serializer.data, status=status.HTTP_200_OK)
+        except Customer.DoesNotExist:
+            return Response({'message': 'Customer not found'}, status=status.HTTP_404_NOT_FOUND)
         except Exception as e:
             return Response({'message': f"Something went wrong: {str(e)}"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
