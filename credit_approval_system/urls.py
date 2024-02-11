@@ -21,14 +21,10 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('customers.urls')),
     path('', include('loans.urls')),
-    
 ]
 
 
-{
-    "first_name": "John",
-    "last_name": "Perter",
-    "age":  18,
-    "monthly_salary": 51000,
-    "phone_number": 9879876958   
-}
+
+
+
+

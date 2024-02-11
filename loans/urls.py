@@ -8,9 +8,3 @@ urlpatterns = [
     path('view-loans/<int:customer_id>', ViewLoansByCustomer.as_view(), name='view_loans'),
 ]
 
-{
-"customer_id": 14,
-"loan_amount": 50000,
-"interest_rate": 7,
-"tenure": 16
-}

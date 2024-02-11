@@ -10,23 +10,22 @@ class Command(BaseCommand):
         loan_data = pd.read_excel('loan_data.xlsx')
         for index, row in loan_data.iterrows():
             customer_id = row['Customer ID']
-            loan_id = row['Loan ID']  # Get loan ID from the data
+            loan_id = row['Loan ID']  
             loan_amount = row['Loan Amount']
             end_date = row['End Date']
 
-            # Check if loan ID already exists
+            customer = Customer.objects.get(customer_id=customer_id)
             if Loan.objects.filter(loan_id=loan_id).exists():
                 self.stdout.write(self.style.WARNING(f"Loan ID {loan_id} already exists. Skipping creation."))
-                continue  # Skip creating the loan
+                continue
 
-            # Create the loan if it doesn't exist
             loan = Loan.objects.create(
-                customer_id=customer_id,
+                customer_id=customer,
                 loan_id=loan_id,
                 loan_amount=loan_amount,
                 tenure=row['Tenure'],
                 interest_rate=row['Interest Rate'],
-                monthly_repayment=row['Monthly payment'],
+                monthly_installment=row['Monthly payment'],
                 emis_paid_on_time=row['EMIs paid on Time'],
                 start_date=row['Date of Approval'],
                 end_date=end_date

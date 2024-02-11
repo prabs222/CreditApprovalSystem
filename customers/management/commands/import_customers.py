@@ -13,7 +13,7 @@ class Command(BaseCommand):
                 last_name=row['Last Name'],
                 age=row['Age'],
                 phone_number=row['Phone Number'],
-                monthly_salary=row['Monthly Salary'],
+                monthly_income=row['Monthly Salary'],
                 approved_limit=row['Approved Limit'],
                 current_debt=0  
             )

@@ -6,7 +6,7 @@ class Customer(models.Model):
     last_name = models.CharField(max_length=100)
     age = models.IntegerField()
     phone_number = models.CharField(max_length=15)
-    monthly_salary = models.DecimalField(max_digits=10, decimal_places=2)
+    monthly_income = models.DecimalField(max_digits=10, decimal_places=2)
     approved_limit = models.DecimalField(max_digits=10, decimal_places=2)
     current_debt = models.DecimalField(max_digits=10, decimal_places=2, default=0)
 
